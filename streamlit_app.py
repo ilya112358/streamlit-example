@@ -4,6 +4,7 @@ from bokeh.models import ColumnDataSource
 import streamlit as st
 import streamlit.components.v1 as components
 import pandas as pd
+import g4f
 
 
 df = pd.read_csv('data.csv')
@@ -15,3 +16,11 @@ for walk in range(1, len(df.columns)):
 st.title("Check Bokeh Library")
 st.text("before using it")
 components.html(file_html(p, 'cdn', ), height=600)
+
+response = g4f.ChatCompletion.create(
+    model="gpt-3.5-turbo",
+    messages=[{"role": "user", "content": "Hello"}],
+    stream=True,
+)
+for message in response:
+    print(message, flush=True, end='')
