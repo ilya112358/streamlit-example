@@ -1,6 +1,7 @@
 from bokeh.embed import file_html
 from bokeh.plotting import figure
 from bokeh.models import ColumnDataSource, Legend
+from bokeh.models.tools import PanTool, WheelZoomTool
 import streamlit as st
 import streamlit.components.v1 as components
 import pandas as pd
@@ -18,6 +19,8 @@ df = pd.read_csv('data.csv')
 p = figure(title='Right Ankle Angles', x_axis_label='Gait cycle, %', y_axis_label='Degrees')
 p.title.align = "center"
 p.title.text_font_size = "25px"
+p.toolbar.active_drag = p.select_one(PanTool)
+p.toolbar.active_scroll = p.select_one(WheelZoomTool)
 colors = ['red', 'green', 'blue', 'orange', 'black']
 lines, labels = [], []
 for walk in range(1, len(df.columns)):
